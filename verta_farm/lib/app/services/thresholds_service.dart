@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../core/app_config.dart';
 import 'package:get/get.dart';
 import '../models/thresholds_model.dart';
 
 class ThresholdsService extends GetxService {
   static ThresholdsService get to => Get.find();
 
-  final String baseUrl = 'http://192.168.0.134:8000/api/v1';
+  final String baseUrl = AppConfig.baseUrl;
   var currentThresholds = ThresholdsModel.getDefaultThresholds('esp32-001').obs;
   var isLoading = false.obs;
   var lastFetchTime = DateTime.now().obs;

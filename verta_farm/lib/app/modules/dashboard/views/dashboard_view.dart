@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../../widgets/sensor_card.dart';
 import '../../../widgets/system_status_card.dart';
 import '../../../widgets/mini_graph.dart';
 import '../../../widgets/plant_health_card.dart';
 import '../../../widgets/thresholds_edit_modal.dart';
 import '../../../widgets/water_tank_card.dart';
-import '../../../widgets/water_flow_card.dart';
+// import '../../../widgets/water_flow_card.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -182,13 +181,7 @@ class DashboardView extends GetView<DashboardController> {
                       diseaseDetected: controller.diseaseDetected.value,
                       onScanNow: controller.scanNow,
                       onViewDetails: controller.diseaseDetected.value
-                          ? () => Fluttertoast.showToast(
-                              msg: 'Showing disease details...',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: Colors.blue,
-                              textColor: Colors.white,
-                            )
+                          ? () {}
                           : null,
                     ),
                   ),
@@ -573,13 +566,9 @@ class DashboardView extends GetView<DashboardController> {
                   const SizedBox(height: 16),
 
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.surface.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: theme.colorScheme.outline.withOpacity(0.2),
-                      ),
                     ),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
@@ -592,56 +581,70 @@ class DashboardView extends GetView<DashboardController> {
                           crossAxisCount = 6;
                         }
 
-                        return Obx(
-                          () => GridView.count(
+                        return Obx(() {
+                          final items = [
+                            (
+                              'Tempe',
+                              '${controller.temperatureMin.toStringAsFixed(1)}°C - ${controller.temperatureMax.toStringAsFixed(1)}°C',
+                              Icons.thermostat,
+                              Colors.red,
+                            ),
+                            (
+                              'Humidity',
+                              '${controller.humidityMin.toStringAsFixed(0)}% - ${controller.humidityMax.toStringAsFixed(0)}%',
+                              Icons.water_drop,
+                              Colors.blue,
+                            ),
+                            (
+                              'Light',
+                              '${controller.lightMin.toStringAsFixed(0)} - ${controller.lightMax.toStringAsFixed(0)}',
+                              Icons.lightbulb,
+                              Colors.amber,
+                            ),
+                            (
+                              'Water',
+                              '${controller.waterMin.toStringAsFixed(0)}% - ${controller.waterMax.toStringAsFixed(0)}%',
+                              Icons.water,
+                              Colors.cyan,
+                            ),
+                            (
+                              'pH',
+                              '${controller.phMin.toStringAsFixed(1)} - ${controller.phMax.toStringAsFixed(1)}',
+                              Icons.science,
+                              Colors.purple,
+                            ),
+                            (
+                              'TDS',
+                              '${controller.tdsMin.toStringAsFixed(0)} - ${controller.tdsMax.toStringAsFixed(0)} ppm',
+                              Icons.water_drop,
+                              Colors.orange,
+                            ),
+                          ];
+
+                          return GridView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: crossAxisCount,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            childAspectRatio: constraints.maxWidth > 600
-                                ? 1.0
-                                : 0.8,
-                            children: [
-                              _buildThresholdItem(
-                                'Temperature',
-                                '${controller.temperatureMin.toStringAsFixed(1)}°C - ${controller.temperatureMax.toStringAsFixed(1)}°C',
-                                Icons.thermostat,
-                                Colors.red,
-                              ),
-                              _buildThresholdItem(
-                                'Humidity',
-                                '${controller.humidityMin.toStringAsFixed(0)}% - ${controller.humidityMax.toStringAsFixed(0)}%',
-                                Icons.water_drop,
-                                Colors.blue,
-                              ),
-                              _buildThresholdItem(
-                                'Light',
-                                '${controller.lightMin.toStringAsFixed(0)} - ${controller.lightMax.toStringAsFixed(0)}',
-                                Icons.lightbulb,
-                                Colors.amber,
-                              ),
-                              _buildThresholdItem(
-                                'Water',
-                                '${controller.waterMin.toStringAsFixed(0)}% - ${controller.waterMax.toStringAsFixed(0)}%',
-                                Icons.water,
-                                Colors.cyan,
-                              ),
-                              _buildThresholdItem(
-                                'pH',
-                                '${controller.phMin.toStringAsFixed(1)} - ${controller.phMax.toStringAsFixed(1)}',
-                                Icons.science,
-                                Colors.purple,
-                              ),
-                              _buildThresholdItem(
-                                'TDS',
-                                '${controller.tdsMin.toStringAsFixed(0)} - ${controller.tdsMax.toStringAsFixed(0)} ppm',
-                                Icons.water_drop,
-                                Colors.orange,
-                              ),
-                            ],
-                          ),
-                        );
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: crossAxisCount,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                  childAspectRatio: constraints.maxWidth > 600
+                                      ? 2.6
+                                      : 2.0,
+                                ),
+                            itemCount: items.length,
+                            itemBuilder: (context, index) {
+                              final item = items[index];
+                              return _buildThresholdItem(
+                                item.$1,
+                                item.$2,
+                                item.$3,
+                                item.$4,
+                              );
+                            },
+                          );
+                        });
                       },
                     ),
                   ),
@@ -723,41 +726,40 @@ class DashboardView extends GetView<DashboardController> {
         final isLargeScreen = constraints.maxWidth > 600;
 
         return Container(
-          padding: EdgeInsets.all(isLargeScreen ? 20 : 16),
+          padding: EdgeInsets.symmetric(
+            horizontal: isLargeScreen ? 12 : 10,
+            vertical: isLargeScreen ? 8 : 6,
+          ),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.08),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: color.withOpacity(0.2)),
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outline.withOpacity(0.1),
+            ),
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.all(isLargeScreen ? 10 : 8),
-                decoration: BoxDecoration(
-                  color: color.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: color, size: isLargeScreen ? 24 : 20),
-              ),
-              SizedBox(height: isLargeScreen ? 10 : 8),
+              Icon(icon, color: color, size: isLargeScreen ? 18 : 16),
+              SizedBox(width: 8),
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: isLargeScreen ? 15 : 13,
+                  fontSize: isLargeScreen ? 13 : 12,
                   fontWeight: FontWeight.w600,
-                  color: color,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
-              SizedBox(height: isLargeScreen ? 6 : 4),
+              SizedBox(width: 6),
               Text(
                 range,
                 style: TextStyle(
                   fontSize: isLargeScreen ? 12 : 11,
-                  color: color.withOpacity(0.8),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
                   fontWeight: FontWeight.w500,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: isLargeScreen ? 2 : 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ],

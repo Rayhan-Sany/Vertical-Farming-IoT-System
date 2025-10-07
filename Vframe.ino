@@ -15,14 +15,14 @@
 #endif
 
 // ====== USER CONFIG: update these ======
-const char* WIFI_SSID = "Decompiler";
-const char* WIFI_PASSWORD = "17532296404";
+const char* WIFI_SSID = "Spider";
+const char* WIFI_PASSWORD = "00000000";
 // To find your MQTT broker IP or hostname when using Docker:
 // - If your ESP32 is on the same WiFi network as your PC, run `ipconfig` (Windows) or `ifconfig`/`ip a` (Linux/Mac) on your PC to get its local IP address.
 // - Use that IP as MQTT_HOST (e.g., "192.168.1.100") if you started the broker with Docker on your PC.
 // - If using Docker Compose, make sure the broker's port (usually 1883) is published to your host.
 // Example (replace with your actual host IP):
-const char* MQTT_HOST = "192.168.0.134"; // Broker IP or hostname
+const char* MQTT_HOST = "98.70.30.33"; // Broker IP or hostname
 const uint16_t MQTT_PORT = 1883;
 const char* DEVICE_ID = "esp32-001";  // Must match backend device_id
 
@@ -274,7 +274,7 @@ void connectWiFi() {
     }
   }
   Serial.print("\n[WiFi] Connected. IP: ");
-  Serial.println(WiFi.localIP());
+  Serial.println("98.70.30.33");
   wifiConnected = true;
 }
 
@@ -489,7 +489,7 @@ void loop() {
   static uint32_t lastLog = 0;
   if (millis() - lastLog > 10000) { // every 10s
     lastLog = millis();
-    Serial.print("[HB] WiFi "); Serial.print(WiFi.localIP());
+    Serial.print("[HB] WiFi "); Serial.print("98.70.30.33");
     Serial.print(" | MQTT "); Serial.println(mqttClient.connected() ? "OK" : "DISCONNECTED");
   }
   // Periodic sensor publishes (server-expected topics)

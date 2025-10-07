@@ -3,11 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../core/app_config.dart';
 
 class ControlService extends GetxService {
   static ControlService get to => Get.find();
 
-  final String baseUrl = 'http://192.168.0.134:8000/api/v1';
+  final String baseUrl = AppConfig.baseUrl;
   var isControlling = false.obs;
   var isControllingLight = false.obs;
   var isControllingPump = false.obs;
@@ -43,14 +44,6 @@ class ControlService extends GetxService {
         final data = json.decode(response.body);
         print('Control API response: $data');
 
-        Fluttertoast.showToast(
-          msg: '$target turned ${desiredState.toUpperCase()}',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-        );
-
         return true;
       } else {
         print(
@@ -59,7 +52,7 @@ class ControlService extends GetxService {
 
         Fluttertoast.showToast(
           msg: 'Failed to control $target: ${response.statusCode}',
-          toastLength: Toast.LENGTH_LONG,
+          toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.red,
           textColor: Colors.white,
@@ -72,7 +65,7 @@ class ControlService extends GetxService {
 
       Fluttertoast.showToast(
         msg: 'Failed to control $target: $e',
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.red,
         textColor: Colors.white,

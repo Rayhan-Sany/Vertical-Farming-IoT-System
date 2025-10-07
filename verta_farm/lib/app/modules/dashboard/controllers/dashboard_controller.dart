@@ -122,27 +122,11 @@ class DashboardController extends GetxController {
     };
 
     _webSocketService.onConnected = () {
-      Fluttertoast.showToast(
-        msg: 'Connected - Real-time data connection established',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-      );
-
       // Request current status from ESP32 after connection
       requestCurrentStatus();
     };
 
     _webSocketService.onDisconnected = () {
-      Fluttertoast.showToast(
-        msg: 'Disconnected - Real-time data connection lost',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
-
       // Mark device as offline when WebSocket disconnects
       isDeviceOnline.value = false;
       deviceStatus.value = 'Device Offline';
@@ -540,23 +524,11 @@ class DashboardController extends GetxController {
 
   void scanNow() {
     // Simulate AI scan
-    Fluttertoast.showToast(
-      msg: 'Scanning... AI is analyzing plant health...',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
+    // Optional: could show a small in-UI indicator instead of toast
 
     Future.delayed(Duration(seconds: 2), () {
       updateHealthStatus();
-      Fluttertoast.showToast(
-        msg: 'Scan Complete: ${aiSummary.value}',
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-      );
+      // Completed silently
     });
   }
 

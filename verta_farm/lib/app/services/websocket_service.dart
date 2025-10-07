@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:web_socket_client/web_socket_client.dart';
 import 'package:get/get.dart';
+import '../core/app_config.dart';
 
 class WebSocketService extends GetxService {
   static WebSocketService get to => Get.find();
@@ -16,7 +17,7 @@ class WebSocketService extends GetxService {
   Function()? onDisconnected;
 
   // WebSocket URL
-  final String wsUrl = 'ws://192.168.0.134:8000/api/v1/realtime/esp32-001';
+  late final String wsUrl = AppConfig.websocketUrl('esp32-001');
 
   @override
   void onInit() {

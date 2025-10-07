@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:web_socket_client/web_socket_client.dart';
+import '../core/app_config.dart';
 
 class WebSocketTest {
   static void testConnection() async {
-    const String wsUrl = 'ws://192.168.0.134:8000/api/v1/realtime/esp32-001';
+    final String wsUrl = AppConfig.websocketUrl('esp32-001');
 
     print('Testing WebSocket connection to: $wsUrl');
 

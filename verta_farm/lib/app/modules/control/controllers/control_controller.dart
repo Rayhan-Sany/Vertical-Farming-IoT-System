@@ -128,7 +128,7 @@ class ControlController extends GetxController {
     if (pumpStatus.value && value == 0) {
       Fluttertoast.showToast(
         msg: 'Warning: Flow rate is 0% but pump is ON',
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.orange,
         textColor: Colors.white,
@@ -138,13 +138,6 @@ class ControlController extends GetxController {
 
   void setPumpMode(String mode) {
     pumpMode.value = mode;
-    Fluttertoast.showToast(
-      msg: 'Pump Mode: Switched to $mode mode',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
   }
 
   void startManualWatering() {
@@ -153,26 +146,14 @@ class ControlController extends GetxController {
     isManualWatering.value = true;
     pumpStatus.value = true;
 
-    Fluttertoast.showToast(
-      msg: 'Manual Watering: Started for ${manualWateringTime.value} seconds',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
+    // toast removed
 
     Future.delayed(Duration(seconds: manualWateringTime.value), () {
       isManualWatering.value = false;
       if (pumpMode.value == 'Manual') {
         pumpStatus.value = false;
       }
-      Fluttertoast.showToast(
-        msg: 'Manual Watering: Completed',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-      );
+      // toast removed
     });
   }
 
@@ -195,13 +176,6 @@ class ControlController extends GetxController {
 
   void setLightMode(String mode) {
     lightMode.value = mode;
-    Fluttertoast.showToast(
-      msg: 'Light Mode: Switched to $mode mode',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
   }
 
   void setLightDuration(int hours) {
@@ -216,103 +190,37 @@ class ControlController extends GetxController {
   void toggleFan() {
     fanStatus.value = !fanStatus.value;
     updateIcons();
-    Fluttertoast.showToast(
-      msg: fanStatus.value
-          ? 'Fan Status: Ventilation fan turned ON'
-          : 'Fan Status: Ventilation fan turned OFF',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: fanStatus.value ? Colors.green : Colors.grey,
-      textColor: Colors.white,
-    );
   }
 
   void setFanMode(String mode) {
     fanMode.value = mode;
-    Fluttertoast.showToast(
-      msg: 'Fan Mode: Switched to $mode mode',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
   }
 
   void setFanSpeed(String speed) {
     fanSpeed.value = speed;
-    Fluttertoast.showToast(
-      msg: 'Fan Speed: Speed set to $speed',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-    );
   }
 
   // Auto Mode Configuration
   void toggleAutoMode() {
     autoMode.value = !autoMode.value;
     updateIcons();
-    Fluttertoast.showToast(
-      msg: autoMode.value
-          ? 'Auto Mode: Automatic control enabled'
-          : 'Auto Mode: Manual control enabled',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: autoMode.value ? Colors.green : Colors.orange,
-      textColor: Colors.white,
-    );
   }
 
   void toggleAutoWatering() {
     autoWatering.value = !autoWatering.value;
-    Fluttertoast.showToast(
-      msg: autoWatering.value
-          ? 'Auto Watering: Enabled'
-          : 'Auto Watering: Disabled',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: autoWatering.value ? Colors.green : Colors.grey,
-      textColor: Colors.white,
-    );
   }
 
   void toggleAutoLighting() {
     autoLighting.value = !autoLighting.value;
-    Fluttertoast.showToast(
-      msg: autoLighting.value
-          ? 'Auto Lighting: Enabled'
-          : 'Auto Lighting: Disabled',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: autoLighting.value ? Colors.green : Colors.grey,
-      textColor: Colors.white,
-    );
   }
 
   void toggleSmartMode() {
     smartMode.value = !smartMode.value;
-    Fluttertoast.showToast(
-      msg: smartMode.value
-          ? 'Smart Mode: AI optimization enabled'
-          : 'Smart Mode: AI optimization disabled',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: smartMode.value ? Colors.green : Colors.grey,
-      textColor: Colors.white,
-    );
   }
 
   // Schedule Settings
   void toggleSchedule() {
     scheduleEnabled.value = !scheduleEnabled.value;
-    Fluttertoast.showToast(
-      msg: scheduleEnabled.value ? 'Schedule: Enabled' : 'Schedule: Disabled',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: scheduleEnabled.value ? Colors.green : Colors.grey,
-      textColor: Colors.white,
-    );
   }
 
   void addWateringTime(String time) {

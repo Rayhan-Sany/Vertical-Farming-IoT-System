@@ -10,9 +10,9 @@ import '../modules/graphs/bindings/graphs_binding.dart';
 import '../modules/graphs/views/graphs_view.dart';
 import '../modules/notifications/bindings/notifications_binding.dart';
 import '../modules/notifications/views/notifications_view.dart';
-import '../controllers/main_controller.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home/views/splash.dart';
 import '../modules/main_nav/views/main_nav_view.dart';
 
 part 'app_routes.dart';
@@ -20,10 +20,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.MAIN;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(name: Routes.MAIN, page: () => const MainNavView()),
+    GetPage(name: Routes.SPLASH, page: () => const SplashView()),
     GetPage(
       name: Routes.DASHBOARD,
       page: () => const DashboardView(),

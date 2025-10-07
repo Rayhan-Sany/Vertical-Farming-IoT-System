@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app/routes/app_pages.dart';
 import 'app/controllers/main_controller.dart';
 import 'app/modules/dashboard/controllers/dashboard_controller.dart';
