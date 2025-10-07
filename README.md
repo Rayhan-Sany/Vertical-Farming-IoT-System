@@ -1,8 +1,21 @@
 ### Vertical Farming IoT Backend
+<img width="1600" height="903" alt="Cover (1)" src="https://github.com/user-attachments/assets/649a3ff3-21c5-4281-8255-511a7de2bb61" />
 
 A production-ready FastAPI backend for a vertical farming system. It ingests sensor and status data from MQTT, persists it to MySQL, streams realtime updates via WebSockets, and exposes a typed REST API with OpenAPI docs.
 
 The repository also contains a Flutter app in `verta_farm/` and an ESP32 sketch `Vframe.ino` for device-side publishing.
+
+<img width="1600" height="903" alt="MOBILE POS APPLICATION" src="https://github.com/user-attachments/assets/ceadb0c6-af81-46af-ae03-52ece54182e7" />
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <img src="https://github.com/user-attachments/assets/76bc341c-a115-4931-a6bc-92a4196edc4b" width="24%" />
+  <img src="https://github.com/user-attachments/assets/2f9f1178-6a54-4411-ac25-f85990cbeda7" width="24%" />
+  <img src="https://github.com/user-attachments/assets/eb969565-0072-4703-a1a8-b78b1d13547a" width="24%" />
+  <img src="https://github.com/user-attachments/assets/a734739d-0b78-4de4-a230-7d7dfc6277a0" width="24%" />
+</div>
+
+
+
 
 ---
 
